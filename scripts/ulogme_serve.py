@@ -10,7 +10,7 @@ import os
 import SocketServer
 import SimpleHTTPServer
 import cgi
-
+import subprocess
 from export_events import updateEvents
 from rewind7am import rewindTime
 
@@ -26,6 +26,12 @@ else:
 rootdir = os.getcwd()
 os.chdir(os.path.join("..", "render"))
 
+def writenote(note, time_=None):
+    cmd = ["./note.sh"]
+    if time_ is not None:
+        cmd.append(str(time_))
+    process = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+    process.communicate(input=note)
 
 # Custom handler
 class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
@@ -58,7 +64,7 @@ class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             note = form.getvalue("note")
             note_time = form.getvalue("time")
             os.chdir(rootdir)  # pop out
-            os.system("echo %s | ../scripts/note.sh %s" % (note, note_time))
+            writenote(note, note_time)
             updateEvents()  # defined in export_events.py
             os.chdir(os.path.join("..", "render"))  # go back to render
             result = "OK"
