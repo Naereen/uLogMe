@@ -17,9 +17,8 @@ while true; do
     PID=$!
 
     # work in windows of 10 seconds
-    sleep 10
-    kill $PID
-
+    kill $(jobs -rp)
+    wait $(jobs -rp) 2>/dev/null
     # count number of key release events
     num=$(grep -c release "$helperfile")
 
