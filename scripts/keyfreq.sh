@@ -13,7 +13,7 @@ helperfile="../logs/keyfreqraw.txt"  # temporary helper file
 mkdir -p ../logs
 
 while true; do
-    showkey &> $helperfile &
+    showkey | tr -d '0-9' &> $helperfile &
     PID=$!
 
     # work in windows of 10 seconds
