@@ -27,7 +27,7 @@ rootdir = os.getcwd()
 os.chdir(os.path.join("..", "render"))
 
 def writenote(note, time_=None):
-    cmd = ["./note.sh"]
+    cmd = ["../scripts/note.sh"]
     if time_ is not None:
         cmd.append(str(time_))
     process = subprocess.Popen(cmd, stdin=subprocess.PIPE)
