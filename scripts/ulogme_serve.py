@@ -119,6 +119,6 @@ if __name__ == "__main__":
             print("\nError, ulogme_serve.py was interrupted, giving:")
             print("Exception: e =", e)
             # print("Exception: dir(e) =", dir(e))  # DEBUG
-    except KeyboardInterrupt:
-        print("\nYou probably asked to interrupt the 'ulogme_serve.py' HTTP server ...")
-        print("You should wait for some time before using the port {} again. (about 1 minute on Ubuntu)".format(PORT))
+    finally:
+        print("\nClosing HTTP server...")
+        httpd.server_close()
