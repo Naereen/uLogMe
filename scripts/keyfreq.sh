@@ -14,7 +14,6 @@ mkdir -p ../logs
 
 while true; do
     showkey | tr -d '0-9' &> $helperfile &
-    PID=$!
 
     # work in windows of 10 seconds
     kill $(jobs -rp)
