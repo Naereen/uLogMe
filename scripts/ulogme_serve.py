@@ -32,6 +32,7 @@ def writenote(note, time_=None):
         cmd.append(str(time_))
     process = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     process.communicate(input=note.encode())
+    process.wait()
 
 # Custom handler
 class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
