@@ -16,6 +16,7 @@ while true; do
     showkey | tr -d '0-9' &> $helperfile &
 
     # work in windows of 10 seconds
+    sleep 10
     kill $(jobs -rp)
     wait $(jobs -rp) 2>/dev/null
     # count number of key release events
