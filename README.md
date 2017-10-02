@@ -34,13 +34,17 @@ See a blog post (along with multiple screenshots) describing the project [here.]
 
 1. Clone the repository to some folder: `$ git clone https://github.com/Naereen/uLogMe.git`
 2. If you're on Ubuntu, make sure you have the dependencies: the `xdotool` `xinput` `wmctrl` `xprintidle` packets are *required* (to install them: `$ sudo apt-get install xdotool xinput wmctrl xprintidle`). On other Linux distribution, install them also, and you may also need gnome-screensaver (`$ sudo PACKETMANAGER install gnome-screensaver` where `PACKETMANAGER=pacman` on ArchLinux, `PACKETMANAGER=yum` on Fedora, etc).
-3. `cd` inside and run `$ ./ulogme.sh`. This will launch two scripts. The first one, [`keyfreq.sh`](scripts/keyfreq.sh), records the frequency of keystrokes, and the other one ,[`logactivewin`](scripts/logactivewin.sh), records active window titles. Both write their logs into log files in the `logs/` directory. Every log file is very simple: just the [Unix time stamp](https://en.wikipedia.org/wiki/Unix_time) followed by data, one per line (plain text file). We tried to be smart and only logging the useful data.
+3. `cd uLogMe/scripts` and run `$ ./ulogme_data.sh`. This will launch two scripts. The first one, [`keyfreq.sh`](scripts/keyfreq.sh), records the frequency of keystrokes, and the other one ,[`logactivewin`](scripts/logactivewin.sh), records active window titles. Both write their logs into log files in the `logs/` directory. Every log file is very simple: just the [Unix time stamp](https://en.wikipedia.org/wiki/Unix_time) followed by data, one per line (plain text file). We tried to be smart and only logging the useful data.
 
 
 **The user interface**
 
-1. **Important**. As *a one-time setup*, copy over [the example settings file](render/js/render_settings_example.js) to your own copy: `$ cp render/js/render_settings_example.js render/js/render_settings.js` to create your own `render_settings.js` settings file. In this file modify everything to your own preferences. Follow the provided example to specify title mappings: A raw window title comes in, and we match it against regular expressions to determine what type of activity it is. For example, the code would convert "Google Chrome - some cool website" into just "Chrome", or "GitHub - Mozilla Firefox" into just "GitHub". Follow [the provided example](render/js/render_settings_example.js) and read the comments for all settings in the file.
-2. Once that is set up, start the web server viewer: `$ python ulogme_serve.py`, and go to [the provided address](https://localhost:8443) (by default, it is `https://localhost:8443`) in your browser. Hit the refresh button on top right every time you would like to refresh the results based on most recently recorded activity (it erases cache). You can also use a convenience file [`ulogme_serve.sh`](scripts/ulogme_serve.sh) to do both: start the server, and open the web-page.
+1. **Important**. As *a one-time setup*, copy over [the example settings file](render/js/render_settings_example.js) to your own copy:
+
+`$ cp render/js/render_settings_example.js render/js/render_settings.js`
+
+to create your own `render_settings.js` settings file. In this file modify everything to your own preferences. Follow the provided example to specify title mappings: A raw window title comes in, and we match it against regular expressions to determine what type of activity it is. For example, the code would convert "Google Chrome - some cool website" into just "Chrome", or "GitHub - Mozilla Firefox" into just "GitHub". Follow [the provided example](render/js/render_settings_example.js) and read the comments for all settings in the file.
+2. Once that is set up, using a Python 3 environment, start the web server viewer: `$ python ulogme_serve.py`, and go to [the provided address](https://localhost:8443) (by default, it is `https://localhost:8443`) in your browser. Hit the refresh button on top right every time you would like to refresh the results based on most recently recorded activity (it erases cache). You can also use a convenience file [`ulogme_serve.sh`](scripts/ulogme_serve.sh) to do both: start the server, and open the web-page.
 3. If your data is not loading, try to explicitly run `$ python export_events.py` and then hit refresh. This could only be an issue the very first time you run uLogMe.
 
 
@@ -89,7 +93,7 @@ Your private data should be safe with uLogMe:
 - And from [now on](https://github.com/Naereen/uLogMe/issues/10#issuecomment-258616402), the web UI is served by default over a local (untrusted) HTTPS server.
 
 
-> Of course, this is a computer program, written by enthusiast programmers, not security experts: there is bugs, and there might be security problems. But none that we know of at least!
+> Of course, this is a computer program, written by enthusiast programmers, not security experts: there are bugs, and there might be security problems. But none that we know of at least!
 > [Please file an issue if you notice a potential security threats](https://GitHub.com/Naereen/uLogMe/issues/new) !
 
 ### *How can I clean my data ?*
@@ -111,7 +115,7 @@ Your private data should be safe with uLogMe:
 - The HTML templates for the UI lives in [`/render`](render/). It uses jQuery.Ajax to read the JSON files, and then [d3js](https://d3js.org/) for the plots and charts.
 - The Javascript scripts (requirements, library and utility functions) lives in [`/render/js`](render/js/). The dependencies are included minimized, everything is © of their original authors.
 - The CSS style sheets for the UI lives in [`/render/css`](render/css/). It's very basic CSS formatting.
-- There is also two SVG files (for some badges) in [`/render/svg`](render/svg/), and a small [Pikachu favicon](render/favicon.ico)! *Why Pikachu?* [ALWAYS PIKACHU!](http://www.lsv.ens-cachan.fr/~picaro/). [Pikachu](scripts/pikachu.png) (and other Pokémons) should also be used for the icon for the [desktop notifications](scripts/notify.py) sent when refreshing... Useless but funny right?! Here is a demo:
+- There are also two SVG files (for some badges) in [`/render/svg`](render/svg/), and a small [Pikachu favicon](render/favicon.ico)! *Why Pikachu?* [ALWAYS PIKACHU!](http://www.lsv.ens-cachan.fr/~picaro/). [Pikachu](scripts/pikachu.png) (and other Pokémons) should also be used for the icon for the [desktop notifications](scripts/notify.py) sent when refreshing... Useless but funny right?! Here is a demo:
 
 ![Demo - desktop notifications when refreshing](screenshots/demo_random_pokémon_icon.png)
 
